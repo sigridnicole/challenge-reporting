@@ -25,6 +25,7 @@ async function getStudent (req, res, next) {
 
     const student = await knex('students').where({ id: studentId }).first()
     if (!student) return res.status(404).json('Student is not found. Check if student ID is valid.')
+    student.password_hash = undefined
 
     res.json({ student })
   } catch (error) {
@@ -38,6 +39,7 @@ async function getStudentGradesReport (req, res, next) {
 
     const student = await knex('students').where({ id: studentId }).first()
     if (!student) return res.status(404).json('Student is not found. Check if student ID is valid.')
+    student.password_hash = undefined
 
     const studentGrades = grades.filter(grade => String(grade.id) === studentId)
 
